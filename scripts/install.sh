@@ -2,11 +2,14 @@
 
 config="$1"
 root=`cd $2 && pwd`
+name="$3"
 
-name=`basename $config`
-while [[ $name =~ \. ]]; do
-    name="${name%.?*}"
-done
+if [[ -z $name ]]; then
+    name=`basename $config`
+    while [[ $name =~ \. ]]; do
+        name="${name%.?*}"
+    done
+fi
 
 if [[ ! $config =~ .*\.conf$ ]]; then
     echo "Configuration file must end with '.conf'!"
