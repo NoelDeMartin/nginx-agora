@@ -22,21 +22,35 @@ To learn more how this all works I suggest looking at the actual scripts.
 
 ## Plain HTML example
 
-To get started with a bare-bones example, execute the following commands from the `example` folder on the cloned repository.
+To get started with a bare-bones example, execute the following commands from the `example_html` folder on the cloned repository.
 
 ```sh
 nginx-agora install example.test.conf ./
-ln -s ../sites_available/example.test.conf ../sites_enabled
+ln -f -s ../sites_available/example.test.conf ../sites_enabled
 nginx-agora start
 ```
 
-Remember to add example.test to your `/etc/hosts` file.
+Remember to add the `example.test` domain to your `/etc/hosts` file.
 
 Now visit [http://example.test](http://example.test) in your browser and that should work!
+
+## PHP example
+
+This is a more realistic scenario, where you'd have a project using docker-compose. Execute the following commands from the `example_php` folder on the cloned repository.
+
+```sh
+docker-compose up -d
+nginx-agora install example.test.conf ./
+ln -f -s ../sites_available/example.test.conf ../sites_enabled
+nginx-agora start
+```
+
+If you didn't do it in the already, add the `example.test` domain to your `/etc/hosts` file.
+
+Now visit [http://example.test](http://example.test) in your browser and you should see the output from the php script using phpinfo!
 
 ## Disclaimer
 
 These scripts were created for my own use case, and are intended for advanced users who are already familiar with docker and nginx and just want a starting point. Or for others learning how to setup their own server using docker and nginx. But I wouldn't recommend using this in production without looking at the scripts (they are very short!).
 
 If you are looking for a more comprehensive and hands-off alternative, take a look at [nginx-proxy](https://github.com/jwilder/nginx-proxy).
-

@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  app:
+    image: 'php:7.3-fpm-alpine'
+    volumes:
+      - './:/app'
+    networks:
+      default:
+        aliases:
+         - example
+networks:
+  default:
+    external:
+      name: nginx-agora
