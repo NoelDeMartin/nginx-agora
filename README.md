@@ -13,6 +13,8 @@ The following operations are supported:
 - `start` Starts and creates nginx-agora container and network.
 - `restart` Restarts nginx-agora running container.
 - `install` Installs a new website. This command takes the path to the nginx config file, the root folder of the website and an optional name. This name will be used for mounting the root folder into the container under `/var/www/{name}`.
+- `enable` Enables a site for serving.
+- `disable` Disables a site for serving.
 - `stop` Stop nginx-agora running container.
 - `status` Display nginx-agora container status.
 
@@ -26,7 +28,7 @@ To get started with a bare-bones example, execute the following commands from th
 
 ```sh
 nginx-agora install example.test.conf ./
-ln -f -s ../sites_available/example.test.conf ../sites_enabled
+nginx-agora enable
 nginx-agora start
 ```
 
@@ -41,7 +43,7 @@ This is a more realistic scenario, where you'd have a project using docker-compo
 ```sh
 docker-compose up -d
 nginx-agora install example.test.conf ./
-ln -f -s ../sites_available/example.test.conf ../sites_enabled
+nginx-agora enable
 nginx-agora start
 ```
 
