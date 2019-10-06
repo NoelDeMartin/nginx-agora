@@ -17,6 +17,6 @@ echo "Enabling $name site..."
 
 config=`sed -n "2p" $base_dir/sites_installed/$name`
 
-ln -sf $base_dir/sites_available/$config $base_dir/sites_enabled
+ln -sf ../sites_available/$config $base_dir/sites_enabled
 
 echo "Site enabled, make sure to run 'nginx-agora restart' to make this change effective"
