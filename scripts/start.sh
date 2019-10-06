@@ -11,7 +11,7 @@ if [[ -z `docker container ls --all --quiet --filter name=nginx-agora` ]]; then
 
     volumes=""
     for name in `ls $base_dir/sites_installed`; do
-        volumes="$volumes --volume $(head $base_dir/sites_installed/$name):/var/www/$name"
+        volumes="$volumes --volume $(sed -n "1p" $base_dir/sites_installed/$name):/var/www/$name"
     done
 
     docker run -d \
