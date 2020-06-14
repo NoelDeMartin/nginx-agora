@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 if [[ -z `docker container ls --all --quiet --filter name=nginx-agora` ]]; then
-    echo "'nginx-agora' container is not created"
+    printf "\033[0;31m'nginx-agora' is not running\033[0m\n"
 elif [[ -z `docker container ls --quiet --filter name=nginx-agora` ]]; then
-    printf "\033[0;31m'nginx-agora' container is not running\033[0m\n"
+    printf "\033[0;31m'nginx-agora' is not running\033[0m\n"
 else
-    printf "\033[0;32m'nginx-agora' container is running\033[0m\n"
+    printf "\033[0;32m'nginx-agora' is running\033[0m\n"
 fi
 
 echo ""
