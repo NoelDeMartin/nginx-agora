@@ -24,4 +24,8 @@ fi
 
 rm $base_dir/sites_enabled/$config
 
-echo "Site disabled, make sure to run 'nginx-agora restart' to make this change effective"
+if [[ `docker container ls --quiet --filter name=nginx-agora` ]]; then
+    echo "Site disabled, make sure to run 'nginx-agora restart' to make this change effective"
+else
+    echo "Site disabled"
+fi

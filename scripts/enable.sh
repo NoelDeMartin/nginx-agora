@@ -19,4 +19,8 @@ config=`sed -n "2p" $base_dir/sites_installed/$name`
 
 ln -sf ../sites_available/$config $base_dir/sites_enabled
 
-echo "Site enabled, make sure to run 'nginx-agora restart' to make this change effective"
+if [[ `docker container ls --quiet --filter name=nginx-agora` ]]; then
+    echo "Site enabled, make sure to run 'nginx-agora restart' to make this change effective"
+else
+    echo "Site enabled"
+fi

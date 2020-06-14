@@ -14,6 +14,7 @@ The following operations are supported:
 - `restart` Restarts nginx-agora running container.
 - `install` Installs a new website. This command takes the path to the nginx config file, the root folder of the website and an optional name. This name will be used for mounting the root folder into the container under `/var/www/{name}`.
 - `install-proxy` The same as `install`, but this will not mount any folder into the nginx-agora container. This is intended for sites where nginx-agora is only a proxy and all requests, including static assets, are handled by the site container.
+- `uninstall` Removes a site.
 - `enable` Enables a site for serving.
 - `disable` Disables a site for serving.
 - `stop` Stop nginx-agora running container.
