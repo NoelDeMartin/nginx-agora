@@ -11,7 +11,11 @@ if [[ -z `docker container ls --all --quiet --filter name=nginx-agora` ]]; then
 
     volumes=""
     for name in `ls $base_dir/sites_installed`; do
-        volumes="$volumes --volume $(sed -n "1p" $base_dir/sites_installed/$name):/var/www/$name"
+        siteroot=`sed -n "1p" $base_dir/sites_installed/$name`
+
+        if [ "$siteroot" != "proxy" ]; then
+            volumes="$volumes --volume $siteroot:/var/www/$name"
+        fi
     done
 
     docker run -d \

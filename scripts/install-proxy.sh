@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
-link=$(expr $1 == "--link")
-
-if [[ $link = 1 ]]; then
-    shift
-fi
-
-root=`cd $2 && pwd`
 config=`readlink -f $1`
-name="$3"
+name="$2"
 
 if [[ ! $config =~ .*\.conf$ ]]; then
     echo "Configuration file must end with '.conf'!"
@@ -22,13 +15,9 @@ fi
 
 echo "Installing site $name"
 
-if [[ $link = 1 ]]; then
-    ln -sf $config $base_dir/sites_available
-else
-    cp $config $base_dir/sites_available
-fi
+cp $config $base_dir/sites_available
 
-echo $root > $base_dir/sites_installed/$name
+echo "proxy" > $base_dir/sites_installed/$name
 echo `basename $config` >> $base_dir/sites_installed/$name
 
 if [[ `docker container ls --quiet --filter name=nginx-agora` ]]; then
