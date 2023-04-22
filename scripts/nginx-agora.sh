@@ -17,6 +17,9 @@ case "$command" in
         echo 'nginx-agora stop                                      | stop nginx-agora running container'
         echo 'nginx-agora status                                    | display nginx-agora container status'
         ;;
+    'ls' )
+        $scripts_dir/status.sh ${@:2}
+        ;;
     'start' | 'restart' | 'install' | 'install-proxy' | 'uninstall' | 'enable' | 'disable' | 'stop' | 'status' )
         $scripts_dir/$command.sh ${@:2}
         ;;
