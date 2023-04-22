@@ -9,12 +9,12 @@ fi
 
 config=`sed -n "2p" $base_dir/sites_installed/$name`
 
-rm "$base_dir/sites_installed/$name"
-rm "$base_dir/sites_available/$config"
-
 if [[ -f "$base_dir/sites_enabled/$config" ]]; then
     rm "$base_dir/sites_enabled/$config"
 fi
+
+rm "$base_dir/sites_installed/$name"
+rm "$base_dir/sites_available/$config"
 
 if [[ `docker container ls --quiet --filter name=nginx-agora` ]]; then
     echo "Stopping container 'nginx-agora'"
