@@ -14,13 +14,14 @@ case "$command" in
         echo 'nginx-agora uninstall <name>                          | uninstall a site'
         echo 'nginx-agora enable <name>                             | enable a site'
         echo 'nginx-agora disable <name>                            | disable a site'
+        echo 'nginx-agora shell                                     | open shell in the running container'
         echo 'nginx-agora stop                                      | stop nginx-agora running container'
         echo 'nginx-agora status                                    | display nginx-agora container status'
         ;;
     'ls' )
         $scripts_dir/status.sh ${@:2}
         ;;
-    'start' | 'restart' | 'install' | 'install-proxy' | 'uninstall' | 'enable' | 'disable' | 'stop' | 'status' )
+    'start' | 'restart' | 'install' | 'install-proxy' | 'uninstall' | 'enable' | 'disable' | 'shell' | 'stop' | 'status')
         $scripts_dir/$command.sh ${@:2}
         ;;
     * )
