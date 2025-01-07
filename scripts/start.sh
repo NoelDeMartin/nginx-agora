@@ -20,6 +20,7 @@ if [[ -z `docker container ls --all --quiet --filter name=nginx-agora` ]]; then
 
     docker run -d \
         --name nginx-agora \
+        --restart unless-stopped \
         --publish 80:80 \
         --publish 443:443 \
         --volume $base_dir/sites_available:/etc/nginx/sites_available \
