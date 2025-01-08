@@ -19,7 +19,6 @@ if [[ -z `docker container ls --all --quiet --filter name=nginx-agora` ]]; then
     done
 
     docker run -d \
-        --rm \
         --name nginx-agora \
         --restart unless-stopped \
         --publish 80:80 \
