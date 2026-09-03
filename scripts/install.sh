@@ -3,11 +3,17 @@
 base_dir=${base_dir:?}
 
 link=0
+args=()
 
-if [[ "$1" == "--link" ]]; then
-	link=1
-	shift
-fi
+for arg in "$@"; do
+	if [[ "$arg" == "--link" ]]; then
+		link=1
+	else
+		args+=("$arg")
+	fi
+done
+
+set -- "${args[@]}"
 
 config=$(readlink -f "$1")
 name="$3"
