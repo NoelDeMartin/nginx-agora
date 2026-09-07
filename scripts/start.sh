@@ -18,7 +18,7 @@ if [[ -z $(docker container ls --all --quiet --filter name=nginx-agora) ]]; then
 		siteroot=$(sed -n "1p" "$site")
 
 		if [ "$siteroot" != "proxy" ]; then
-			volumes+=("--volume" "$siteroot:/var/www/$name")
+			volumes+=("--volume" "$siteroot:/var/www/$name:ro")
 		fi
 	done
 
