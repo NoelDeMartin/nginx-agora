@@ -20,7 +20,21 @@ The following operations are supported:
 - `stop` Stop nginx-agora running container.
 - `status` Display nginx-agora container status.
 
-A network with the name `nginx-agora` will be created, and containers to be exposed should be attached to this network.
+## Networking
+
+`nginx-agora` supports two networking modes for connecting upstream containers:
+
+### Shared Network
+
+A single Docker network named `nginx-agora` is created, and upstream containers can be attached to this network. In this mode, all containers attached to `nginx-agora` share the same network and can communicate with each other.
+
+### Isolated Networks
+
+When `nginx-agora start` runs, it automatically creates a dedicated Docker network for each enabled site using the naming format `nginx-agora-<name>` (where `<name>` matches the site name, e.g. `nginx-agora-my-app`), and connects the `nginx-agora` container to each one. Enabling or disabling a site with `nginx-agora enable` / `nginx-agora disable` also connects or disconnects the network dynamically.
+
+Attaching an application container to its dedicated `nginx-agora-<name>` network ensures network segmentation:
+- The `nginx-agora` container can reverse-proxy to the application container.
+- Upstream application containers cannot resolve or communicate with other application containers on different networks.
 
 To learn more how this all works I suggest looking at the actual scripts.
 

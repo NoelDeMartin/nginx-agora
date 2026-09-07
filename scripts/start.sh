@@ -2,7 +2,7 @@
 
 base_dir=${base_dir:?}
 
-if [[ -z $(docker network ls --quiet --filter name=nginx-agora) ]]; then
+if [[ -z $(docker network ls --quiet --filter name="^nginx-agora$") ]]; then
 	echo "Creating network 'nginx-agora'"
 	docker network create nginx-agora
 fi
@@ -38,3 +38,27 @@ elif [[ -z $(docker container ls --quiet --filter name=nginx-agora) ]]; then
 	echo "Starting container 'nginx-agora'"
 	docker start nginx-agora
 fi
+
+for site in "$base_dir/sites_installed"/*; do
+	[ -e "$site" ] || continue
+	name=$(basename "$site")
+	siteconfig=$(sed -n "2p" "$site")
+	network="nginx-agora-$name"
+
+	if [[ -n "$siteconfig" && -f "$base_dir/sites_enabled/$siteconfig" ]]; then
+		if [[ -z $(docker network ls --quiet --filter name="^${network}$") ]]; then
+			echo "Creating network '$network'"
+			docker network create "$network"
+		fi
+
+		if ! docker network inspect "$network" --format '{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null | grep -Fxq "nginx-agora"; then
+			echo "Connecting nginx-agora to network '$network'"
+			docker network connect "$network" nginx-agora 2>/dev/null || true
+		fi
+	else
+		if docker network inspect "$network" --format '{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null | grep -Fxq "nginx-agora"; then
+			echo "Disconnecting nginx-agora from network '$network'"
+			docker network disconnect "$network" nginx-agora 2>/dev/null || true
+		fi
+	fi
+done

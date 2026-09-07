@@ -26,7 +26,18 @@ fi
 
 ln -sf "../sites_available/$config" "$base_dir/sites_enabled"
 
+network="nginx-agora-$name"
+if [[ -z $(docker network ls --quiet --filter name="^${network}$") ]]; then
+	echo "Creating network '$network'"
+	docker network create "$network"
+fi
+
 if [[ $(docker container ls --quiet --filter name=nginx-agora) ]]; then
+	if ! docker network inspect "$network" --format '{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null | grep -Fxq "nginx-agora"; then
+		echo "Connecting nginx-agora to network '$network'"
+		docker network connect "$network" nginx-agora 2>/dev/null || true
+	fi
+
 	echo "Site enabled, make sure to run 'nginx-agora restart' to make this change effective"
 else
 	echo "Site enabled"

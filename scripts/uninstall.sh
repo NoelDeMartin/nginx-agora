@@ -31,4 +31,12 @@ if [[ $(docker container ls --all --quiet --filter name=nginx-agora) ]]; then
 	docker rm nginx-agora
 fi
 
+network="nginx-agora-$name"
+if [[ -n $(docker network ls --quiet --filter name="^${network}$") ]]; then
+	echo "Removing network '$network'"
+	if ! docker network rm "$network" 2>/dev/null; then
+		echo "Warning: could not remove network '$network' (containers may still be attached)"
+	fi
+fi
+
 echo "Site $name has been uninstalled"
