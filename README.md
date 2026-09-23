@@ -2,11 +2,17 @@
 
 A collection of bash scripts to manage an nginx docker container acting as a reverse proxy to other containers.
 
+Learn more about my self-hosting set up here: [Programming Patterns: Self-hosting](https://noeldemartin.com/blog/programming-patterns-self-hosting).
+
+## Installation
+
 For convenience, install the main script into your bin directory:
 
 ```sh
 sudo ln -s `pwd`/scripts/nginx-agora.sh /usr/bin/nginx-agora
 ```
+
+## Usage
 
 The following operations are supported:
 
