@@ -9,7 +9,7 @@ Learn more about my self-hosting set up here: [Programming Patterns: Self-hostin
 For convenience, install the main script into your bin directory:
 
 ```sh
-sudo ln -s `pwd`/scripts/nginx-agora.sh /usr/bin/nginx-agora
+sudo ln -s `pwd`/nginx-agora /usr/bin/nginx-agora
 ```
 
 ## Usage

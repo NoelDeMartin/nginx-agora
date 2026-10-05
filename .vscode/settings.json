@@ -1,0 +1,10 @@
+{
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "(\\.sh|/nginx-agora)$",
+                "cmd": "shfmt -l -w ${file} && shellcheck -f diff ${file} | git apply"
+            }
+        ]
+    }
+}

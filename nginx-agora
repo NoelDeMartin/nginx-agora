@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cli_name=nginx-agora
+cli_dir=$(cd "$(dirname "$(readlink -f "$0")")" && pwd)
+# shellcheck disable=SC2034
+base_dir=$cli_dir
+
+source "$cli_dir/lib/cli.sh"
+source "$cli_dir/lib/utils.sh"
+
+command=${1:-}
+shift || true
+
+case "$command" in
+'' | help) cli_help ;;
+*)
+	[[ $command =~ ^[a-z-]+$ && -f "$cli_dir/commands/$command.sh" ]] || die 2 "Unknown command '$command'. Run '$cli_name' for usage."
+	# shellcheck disable=SC1090
+	source "$cli_dir/commands/$command.sh"
+	;;
+esac
