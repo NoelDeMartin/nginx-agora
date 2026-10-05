@@ -39,27 +39,6 @@ die() {
 	exit "$code"
 }
 
-# confirm "Question?" -> honours --yes via CLI_YES=1 or <TOOL>_YES=1
-confirm() {
-	local prompt="${1:-Are you sure?}"
-	local tool_var=""
-	if [[ -n "${cli_name:-}" ]]; then
-		tool_var=$(printf '%s' "$cli_name" | tr '[:lower:]-' '[:upper:]_')_YES
-	fi
-
-	if [[ "${CLI_YES:-0}" == "1" || (-n "$tool_var" && "${!tool_var:-0}" == "1") ]]; then
-		return 0
-	fi
-
-	if [[ ! -t 0 ]]; then
-		return 1
-	fi
-
-	local reply
-	read -r -p "$prompt [y/N] " reply || return 1
-	[[ "$reply" =~ ^[yY]([eE][sS])?$ ]]
-}
-
 # cli_help: reads "# usage:" / "# summary:" from commands/*.sh and prints the list
 cli_help() {
 	local file usage summary max_len=0
